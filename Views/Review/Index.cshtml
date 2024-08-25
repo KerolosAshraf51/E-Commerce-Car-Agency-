@@ -1,0 +1,30 @@
+﻿@model List<review>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row">
+    <div class="col-6 m-auto fs-2">Thank You for your review <span class="text-danger fs-1">@User.Identity.Name</span></div>
+    <script>
+        setTimeout(() => { window.location.href = "http://localhost:5195"; }, 3000);
+    </script>
+</div>
+
+ @* <a href="/Review/Add" class="btn btn-success"> New</a>
+ <table class="table table-hover table-bordered">
+     <tr>
+         <th> description</th>
+         <th> Date</th>
+         <th></th>
+
+     </tr>
+     @foreach (var item in Model)
+     {
+         <tr>
+             <td>@item.description</td>
+             <td>@item.Date</td>
+
+         </tr>
+     }
+ </table> *@

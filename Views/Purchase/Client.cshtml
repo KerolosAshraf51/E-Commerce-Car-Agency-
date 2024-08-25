@@ -1,0 +1,63 @@
+﻿@model List<CarAgency.Models.purchase>
+@{
+    ViewData["Title"] = "Clients and Their Purchases";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0 bg-white table-bordered">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="text-center">Client ID</th>
+                                    <th>Client Name</th>
+                                    <th>Purchased Cars & Prices</th>
+                                    <th class="text-center">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var groupedPurchases = Model?.Where(p => p.Client != null && p.Car != null).GroupBy(p => p.ClientID);
+                                }
+
+                                @if (groupedPurchases != null && groupedPurchases.Any())
+                                {
+                                    @foreach (var group in groupedPurchases)
+                                    {
+                                        var totalPrice = group.Sum(p => p.Car.Price);
+                                        <tr>
+                                            <td class="text-center fw-bold">@group.Key</td>
+                                            <td class="text-primary">@group.FirstOrDefault().Client.UserName</td>
+                                            <td>
+                                                <ul class="list-unstyled">
+                                                    @foreach (var purchase in group)
+                                                    {
+                                                        <li>@purchase.Car.Name (@purchase.Car.Model) - $@purchase.Car.Price</li>
+                                                    }
+                                                </ul>
+                                            </td>
+                                            <td class="text-center fw-bold">$@totalPrice</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">No purchases found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+          
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Purchase")" class="btn btn-outline-primary">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model review
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+<form asp-action="SaveAdd"  method="post">
+   <div class="row">
+       <div class="col-6 mx-auto">
+            <div class="mb-3">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="@Model.carID" value="@Model.carID" />
+
+                <label for="description" class="form-label fs-1">Write your review here</label>
+                <textarea name="description" class="form-control"  id="description" value="@Model?.description"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-50">Add Review</button>
+            </div>     
+       </div>
+   </div>
+</form>
+

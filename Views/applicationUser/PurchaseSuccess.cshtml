@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "PurchaseSuccess";
+    
+}
+<div class="row">
+    <div class="col-8 p-5 mx-auto shadow">
+        <span class="fs-1">Want To Confirm Your Purchase?</span><br /><br /><br />
+        <div class="text-center">
+            <a asp-controller="Car" asp-action="Index" class="btn btn-lg btn-danger">Cancel</a>
+            <a onclick="confir()" class="btn btn-lg btn-success">Confirm</a>
+            <script>
+                function confir() {
+                    IsConfirm = true;
+                    window.location = "http://localhost:5195/applicationUser/confirmBuy";
+                }
+
+            </script>
+        </div>
+    </div>
+</div>

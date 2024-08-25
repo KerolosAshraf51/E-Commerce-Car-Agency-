@@ -1,0 +1,114 @@
+﻿@model CarAgency.ViewModels.carVM
+
+@{
+    ViewData["Title"] = "addCar";
+}
+
+
+<div class="row">
+    <div class="col-md-4 mx-auto shadow p-3 my-5 rounded">
+        <h1 class="text-center">Add New Car</h1><hr />
+        <form asp-action="addCar" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+               
+                <label asp-for="Model"></label>
+                <select class="form-control" asp-for="Model">
+                    @foreach (var item in (List<string>)ViewData["Brands"])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                    <span asp-validation-for="Model" class="text-danger"></span>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+           
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageURL" class="control-label"></label>
+                <input type="file" name="file" class="form-control" />
+                @* <input asp-for="ImageURL" class="form-control" /> *@
+                <span asp-validation-for="ImageURL" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="Transmission"></label>
+                <select class="form-control" asp-for="Transmission">
+                    @foreach (var item in (List<string>)ViewData["transimations"])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                    <span asp-validation-for="Transmission" class="text-danger"></span>
+
+                </select>
+            </div>
+            <div class="form-group">
+               
+                <label asp-for="EngineCapacity"></label>
+                <select class="form-control" asp-for="EngineCapacity">
+                    @foreach (var item in (List<int>)ViewData["cc"])
+                    {
+                        <option value="@item">@item</option>
+                    }
+                    <span asp-validation-for="EngineCapacity" class="text-danger"></span>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+               
+                <label asp-for="classID"></label>
+                <select class="form-control" asp-for="classID">
+                    @foreach (var item in (List<classOfCar>)ViewData["classOfCar"])
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                    <span asp-validation-for="classID" class="text-danger"></span>
+                    
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Add New Car" class="btn btn-outline-primary w-100 my-3 text-black" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+    .form-control{
+        margin : 5px auto;
+    }
+</style>
+@* <script>
+    alert("new car added by : @ViewBag.admin");
+</script> *@

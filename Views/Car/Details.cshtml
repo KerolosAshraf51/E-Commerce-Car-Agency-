@@ -1,0 +1,40 @@
+﻿@model cars
+@{
+    ViewData["Title"] = "Details";
+}
+ 
+
+
+<div class="row">
+    <span class="text-center fs-1">Car Details</span><hr />
+    <div class="card col-md-5 mx-auto shadow p-3 my-5 rounded">
+        <a asp-action="Index" class="btn btn-lg btn-close"></a>
+
+        <h1 class="card-title text-center">@Model.Name</h1>
+        <img src="/images/@Model.ImageURL" class="card-img-top">
+        <div class="card-body">
+            Price: <p class="card-text">@Model.Price</p>
+            Color: <p class="card-text">@Model.Color</p>
+            Prod. Year: <p class="card-text">@Model.Year</p>
+            <div class="text-center">
+                <a asp-controller="Review" asp-action="Add"  asp-route-id="@Model.ID" class="btn btn-lg btn-info">Add Review</a>
+                @* <a href="/applicationUser/BuyCar?carId=@Model.ID" class="btn btn-lg btn-success">Buy Car</a> *@
+                <a href="/applicationUser/BuyCar?carId=@Model.ID" class="btn btn-lg btn-success">Buy Car</a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <span class="text-center fs-2">Reviews</span>
+    <hr /> 
+        @foreach(review item in Model.reviews)
+        {
+            <div class="col-md-3 mx-auto shadow p-3 my-5 rounded">
+                <span class="fs-3 ">@item.description</span><br />
+            <sapn class="fs-6 text-danger">@item.Date</sapn>
+            </div>
+        }
+</div>
+

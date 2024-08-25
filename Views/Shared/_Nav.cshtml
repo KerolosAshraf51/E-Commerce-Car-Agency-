@@ -1,0 +1,51 @@
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark ">
+            <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="car" asp-action="Index">Car Agency</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Car" asp-action="Index">Home</a>
+                        </li>
+                        
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OurTeam">Our Team</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUS">Contact Us</a>
+                        </li>
+                          @if (User.Identity.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="SignOut">LogOut</a>
+                            </li>
+                        
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+                    <input class="form-control w-25" type="search" name="carName" id="carName" placeholder="Search" >
+                    <a class="btn btn-outline-light m-2"  onclick="searchCar()">Search</a>
+                    <a asp-controller="applicationUser" asp-action="ViewProfile" class="nav-link text-light">Welcome <br /> @User.Identity.Name</a>
+                    
+                   
+                </div>
+            </div>
+        </nav>
+
+
+<script>
+    function searchCar() {
+        var inputVal = document.getElementById("carName").value;
+        window.location = "http://localhost:5195/car/search?name=" + inputVal;
+    }
+</script>

@@ -1,0 +1,25 @@
+﻿<!-- Update.cshtml -->
+@model review
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update Review</h1>
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="@Model.carID" value="@Model.carID" />
+    <div class="mb-3">
+        <label asp-for="description" class="form-label">Your Review</label>
+        <input asp-for="description" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label">Date</label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 mt-2">Save</button>
+</form>
+
+<a asp-action="Index">Back To List</a>

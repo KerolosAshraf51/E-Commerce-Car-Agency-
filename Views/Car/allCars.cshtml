@@ -1,0 +1,187 @@
+﻿@model List<cars>
+@{
+    ViewData["Title"] = "our products";
+}
+
+@if (User.Identity.IsAuthenticated == true && User.IsInRole("admin"))
+{
+    <h1>Admin Dashboard</h1>
+
+    <table class="table table-bordered table-hover text-center">
+        <tr class="text-capitalize">
+            <th>Name</th>
+            <th>Model</th>
+            <th>Class</th>
+            <th>Description</th>
+            <th>Year</th>
+            <th>Transmission</th>
+            <th>Color</th>
+            <th>EngineCapacity</th>
+            <th>Image</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Model</td>
+                <td>@item._class.Name</td>
+                <td>@item._class.Description</td>
+                <td>@item.Year</td>
+                <td>@item.Transmission</td>
+                <td>@item.Color</td>
+                <td>@item.EngineCapacity</td>
+                <td><img src="/images/@item.ImageURL" width="70" height="50" /></td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID"  class="btn btn-info">Details</a>
+
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID"  class="btn btn-secondary">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-action="delete" asp-route-id="@item.ID">remove</a>
+                </td>
+            </tr>
+           
+        }
+
+       
+    </table>
+    <div class="row">
+        <div class="col-6 mx-auto">
+            @{
+                int PrevPage = (ViewBag.PageNo - 1);
+                if (PrevPage <= 0)
+                {
+                    PrevPage = 1;
+                }
+
+                int NextPage = (ViewBag.PageNo + 1);
+                if (NextPage > ViewBag.NoOfPages)
+                {
+                    NextPage = ViewBag.NoOfPages;
+                }
+            }
+
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/car/index?PageNo=@PrevPage">Previous</a>
+                </li>
+
+                @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNo)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/car/index?PageNo=@(i+1)">@(i + 1)</a>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/car/index?PageNo=@(i+1)">@(i + 1)</a>
+
+                        </li>
+                    }
+
+                }
+
+                <li class="page-item">
+                    <a class="page-link" href="/car/index?PageNo=@NextPage">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="text-center">
+        <a class="btn btn-primary" asp-action="add">Add New Car</a>
+        <a class="btn btn-primary" asp-action="index" asp-controller="purchase">purchases</a>
+        <a class="btn btn-primary" asp-controller="account" asp-action="RegisterAdmin">Add New Admin</a>
+    </div>
+    
+
+   
+
+}
+else
+{
+    <div class="row gx-3">
+        @foreach(var item in Model)
+        {
+            <div class="card col-md-4 shadow p-3 my-3 rounded">
+                <h1 class="card-title text-center">@item.Name</h1>
+                <img src="/images/@item.ImageURL" class="card-img-top p-4" width="50" height="200">
+                <div class="card-body">
+                    Price: <p class="card-text">@item.Price</p>
+                    Prod. Year: <p class="card-text">@item.Year</p>
+                    <div class="text-center">
+                        <a asp-controller="Car" asp-action="Details" class="btn btn-outline-info w-100" asp-route-id="@item.ID">Details</a>
+                        @* <a href="/applicationUser/BuyCar?carId=@item.ID" class="btn btn-outline-success w-100">Buy</a> *@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-6 mx-auto">
+            @{
+                int PrevPage = (ViewBag.PageNo - 1);
+                if (PrevPage <= 0)
+                {
+                    PrevPage = 1;
+                }
+
+                int NextPage = (ViewBag.PageNo + 1);
+                if (NextPage > ViewBag.NoOfPages)
+                {
+                    NextPage = ViewBag.NoOfPages;
+                }
+            }
+
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/car/index?PageNo=@PrevPage">Previous</a>
+                </li>
+
+                @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNo)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/car/index?PageNo=@(i+1)">@(i + 1)</a>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/car/index?PageNo=@(i+1)">@(i + 1)</a>
+
+                        </li>
+                    }
+
+                }
+
+                <li class="page-item">
+                    <a class="page-link" href="/car/index?PageNo=@NextPage">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+}
+
+
+
+
+
+
+
+
+
+

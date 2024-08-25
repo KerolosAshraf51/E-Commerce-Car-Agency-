@@ -1,0 +1,41 @@
+﻿@model CarAgency.ViewModels.LoginUserViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row">
+    <div class="col-md-4 mx-auto shadow p-3 my-5 rounded">
+        <h1 class="text-center" >Login</h1><hr />
+        <form asp-action="SaveLogin">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-outline-primary w-100 my-3 text-black" />
+            </div><hr />
+            <div>
+                haven't Account<a asp-action="Register" class="btn btn-outline-primary border-0 mx-3">Register Now</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

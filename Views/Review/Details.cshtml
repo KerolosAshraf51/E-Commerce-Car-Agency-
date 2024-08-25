@@ -1,0 +1,16 @@
+﻿@model CarAgency.Models.review
+
+@{
+    ViewData["Title"] = "Review Details";
+}
+
+<h1>Review Details</h1>
+
+<div>
+    <h4>ID: @Model.Id</h4>
+    <p>Description: @Model.description</p>
+    <p>Date: @Model.Date.ToShortDateString()</p>
+</div>
+
+<a href="/Review/Edit/@Model.Id" class="btn btn-primary">Edit</a>
+<a href="/Review/Index" class="btn btn-secondary">Back to List</a>

@@ -1,0 +1,58 @@
+﻿@model List<CarAgency.Models.purchase>
+
+@{
+    ViewData["Title"] = "Purchase List";
+}
+
+<h2 class="text-center my-4">Purchase List</h2>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark text-center">
+                    <tr>
+                        <th>Purchase ID</th>
+                        <th>Car</th>
+                        <th>Client</th>
+                        <th>Purchase Date</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var purchase in Model)
+                    {
+                        <tr>
+                            <td>@purchase.ID</td>
+                            <td>@(purchase.Car != null ? $"{purchase.Car.Name} ({purchase.Car.Model})" : "N/A")</td>
+                            <td>@(purchase.Client != null ? purchase.Client.UserName : "N/A")</td>
+                            <td>@purchase.Date.ToShortDateString()</td>
+                            <td>@(purchase.Car != null ? $"${purchase.Car.Price}" : "N/A")</td>
+                            <td>
+                                <a href="@Url.Action("Details", "Purchase", new { id = purchase.ID })" class="btn btn-info btn-sm">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="total-price-section text-center mt-4">
+                <h5>Total Price of All Purchases:</h5>
+                <p id="totalPrice" class="font-weight-bold">$@Model.Where(p => p.Car != null).Sum(p => p.Car.Price).ToString("0.00")</p>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("OpenClientID", "Purchase")" class="btn btn-primary mx-2">
+                    <i class="fas fa-user"></i> Open Client Purchase
+                </a>
+                <a href="@Url.Action("OpenCarID", "Purchase")" class="btn btn-success mx-2">
+                    <i class="fas fa-car"></i> Open Car Purchase
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
